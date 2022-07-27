@@ -1,54 +1,44 @@
 import os
 class Stack:
-    def __init__(s,n):
-        s.n= n
-        s.st=[None]*n
-        s.top = -1
+    def __init__(self, size):
+        self.items = [None]*size
+        self.size = size
+        self.top = -1
 
-    def push(s):
-       if s.top == s.n-1:
-            print("Stack full!")
-       else:
-            s.top += 1
-            data = int(input("Data to be pushed: "))
-            s.st[s.top] = data
+    def is_empty(self):
+        if (self.top == -1):
+            return True
+        else:
+            return False
 
-    def pop(s):
-      if s.top == -1:
-            print("Empty stack")
-       else:
-            s.top = s.top-1
-            data = s.st[s.top]
-            return data
-     
-    def peek(s):
-       print(s.st[s.top])
-        
+    def is_full(self):
+        if (self.top == self.size-1):
+            return True
+        else:
+            return False
 
-    def display(self):
-        for i in range(s.top + 1):
-            print(s.st[i],end=",")
-
-n = int(input("Enter the size of integer: "))
-s1 = stackADT(n)
-
-while(1):
-    print("\n***SPECIFY BY THE FUNCTIONS BY NUMBERS***")
-    print("\n 1.Push \n 2.Pop \n 3.Peek \n 4.Display \n 5.EXIT")
-    ch = int(input("Function to be performed: "))
+    def push(self, data):
+        if not self.is_full():
+            self.top += 1
+            self.items[self.top] = data
     
-    if ch == 1:
-        print("Inserted")
-        s1.push()
-    elif ch == 2:
-        print("Deleted")
-        s1.pop()
-    elif ch == 3:
-        print("Top element dislay")
-        s1.peek()
-    elif ch==4:
-        ("Total list display")
-        s1.display()
-    else:
-        print("Thank you , have a nice day!")
-        break
+    def pop(self):
+        if not self.is_empty():
+            data = self.items[self.top]
+            self.top -= 1
+            return data
+
+    def status(self):
+        for i in range(self.top+1):
+            print(self.items[i])
+
+# Do not change the following code
+size, queries = map(int, input().rstrip().split())
+stack = Stack(size)
+for line in range(queries):
+    values = list(map(int, input().rstrip().split()))
+    if values[0] == 1:
+        stack.push(values[1])
+    elif values[0] == 2:
+        stack.pop()
+stack.status()
